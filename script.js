@@ -2,7 +2,7 @@
 // 1. DATEN FÜR DEN STARTSEITEN-SLIDER
 // ============================================================================
 
-const stepData = {
+/*const stepData = {
   1: {
     number: '1',
     code: `&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n  &lt;!-- Das nackte Gerüst --&gt;\n&lt;/html&gt;`,
@@ -11,11 +11,7 @@ const stepData = {
     number: '2',
     code: `&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;meta charset="UTF-8"&gt;\n    &lt;title&gt;Salon&lt;/title&gt;\n  &lt;/head&gt;\n&lt;/html&gt;`,
   },
-  3: {
-    number: '99',
-    code: `&lt;!-- Schritt 99: Das fertige CSS/JS Wunder --&gt;\n&lt;header class="hero-salon"&gt;\n  &lt;h1&gt;Meisterhafte Schnitte&lt;/h1&gt;\n  &lt;button onclick="openBooking()"&gt;Termin&lt;/button&gt;\n&lt;/header&gt;`,
-  },
-};
+};*/
 
 // ============================================================================
 // 2. INITIALISIERUNG
