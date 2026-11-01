@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barrierearme Roadmap-Navigation mit Tastatursteuerung</title>
+    <meta
+      name="description"
+      content="Barrierearme Roadmap-Navigation mit Tastatursteuerung"
+    />
+    <meta name="theme-color" content="#131314" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a href="#lesson-content" class="skip-link"
+      >Direkt zur Erklärung springen</a
+    >
+
+    <header class="site-header">
+      <div class="container header-flex">
+        <!-- Die neue interaktive Navigation -->
+        <div class="header-controls">
+          <button
+            id="menu-toggle"
+            class="btn-menu"
+            aria-expanded="false"
+            aria-controls="roadmap-drawer"
+            aria-label="Inhaltsverzeichnis öffnen"
+          >
+            📋 <span class="menu-text">Roadmap</span>
+          </button>
+          <div class="step-badge" aria-label="Aktueller Fortschritt">
+            Schritt 2 / X
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Das versteckte Inhaltsverzeichnis (Drawer) -->
+
+    <!-- ROADMAP: MODALER DIALOG -->
+    <dialog
+      id="roadmap-drawer"
+      class="roadmap-drawer"
+      aria-labelledby="roadmap-title"
+    >
+      <div class="drawer-header">
+        <h2 id="roadmap-title">Roadmap-Navigation</h2>
+
+        <button
+          id="menu-close"
+          class="btn-close"
+          aria-label="Inhaltsverzeichnis schließen"
+          autofocus
+        >
+          &times;
+        </button>
+      </div>
+
+      <nav aria-label="Lektionsübersicht">
+        <ul class="drawer-list">
+          <li>
+            <a href="schritte-1.html"> Schritt 1</a>
+          </li>
+          <li>
+            <a href="schritte-2.html" aria-current="page"> Schritt 2 </a>
+          </li>
+          <!-- Hier folgen die restlichen Schritte -->
+        </ul>
+      </nav>
+    </dialog>
+
+    <!-- Das Haupt-Layout nutzt ein Grid für das Split-Screen-Verfahren -->
+    <main class="lesson-layout">
+      <!-- LINKE SEITE: Didaktischer Inhalt -->
+      <article
+        class="lesson-sidebar"
+        id="lesson-content"
+        aria-labelledby="step-title"
+      >
+        <div class="sidebar-inner">
+          <nav aria-label="Lektionsnavigation" class="step-nav">
+            <a href="schritte-1.html" class="btn-nav">&larr; Zurück</a>
+          </nav>
+          <h1 id="step-title">Schritt 2</h1>
+        </div>
+      </article>
+
+      <!-- RECHTE SEITE: Code-Viewer -->
+      <section class="lesson-code" aria-label="Code-Ansicht für diesen Schritt">
+        <div class="code-container">
+          <div class="code-header">
+            <span class="file-name">schritte-2.html</span>
+            <div class="code-actions">
+              <!-- Unsichtbarer Live-Bereich für Screenreader-Statusmeldungen -->
+              <span
+                id="copy-status"
+                class="visually-hidden"
+                aria-live="polite"
+              ></span>
+              <button
+                class="btn-copy"
+                aria-label="Code in die Zwischenablage kopieren"
+              >
+                📋 <span class="copy-btn-text">Kopieren</span>
+              </button>
+              <span class="highlight-tag">Neu in diesem Schritt</span>
+            </div>
+          </div>
+          <div class="code-window">
+            <pre><code id="code-to-copy" style="letter-spacing: 0;"><span class="code-diff-added">&lt;!DOCTYPE html&gt;
+&lt;html lang="de"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Salon Cut &amp; Style&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Neuer Webseiten Inhalt ...
+  &lt;/body&gt;
+&lt;/html&gt;</span></code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barrierearme Roadmap-Navigation mit Tastatursteuerung</title>
+    <meta
+      name="description"
+      content="Barrierearme Roadmap-Navigation mit Tastatursteuerung"
+    />
+    <meta name="theme-color" content="#131314" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Skip-Link für Barrierefreiheit (Tastatur-User springen direkt zum Inhalt) -->
+    <a href="#main-content" class="skip-link"
+      >Direkt zum Hauptinhalt springen</a
+    >
+
+    <header class="site-header">
+      <div class="container header-flex">
+        <!-- Die neue interaktive Navigation -->
+        <div class="header-controls">
+          <button
+            id="menu-toggle"
+            class="btn-menu"
+            aria-expanded="false"
+            aria-controls="roadmap-drawer"
+            aria-label="Inhaltsverzeichnis öffnen"
+          >
+            📋 <span class="menu-text">Roadmap</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Das versteckte Inhaltsverzeichnis (Drawer) -->
+
+    <!-- ROADMAP: MODALER DIALOG -->
+    <dialog
+      id="roadmap-drawer"
+      class="roadmap-drawer"
+      aria-labelledby="roadmap-title"
+    >
+      <div class="drawer-header">
+        <h2 id="roadmap-title">Roadmap-Navigation</h2>
+
+        <button
+          id="menu-close"
+          class="btn-close"
+          aria-label="Inhaltsverzeichnis schließen"
+          autofocus
+        >
+          &times;
+        </button>
+      </div>
+
+      <nav aria-label="Lektionsübersicht">
+        <ul class="drawer-list">
+          <li>
+            <a href="schritte-1.html"> Schritt 1 </a>
+          </li>
+          <li>
+            <a href="schritte-2.html"> Schritt 2</a>
+          </li>
+
+          <!-- Hier folgen die restlichen Schritte -->
+        </ul>
+      </nav>
+    </dialog>
+
+    <main id="main-content" tabindex="-1">
+      <!-- Hero Section -->
+      <section class="not-ready">
+        <h1>
+          Barrierefreie Roadmap-Navigation
+          <span class="highlight">mit Tastatursteuerung</span>
+        </h1>
+        <p>
+          Ein nativer HTML-Dialog, der sich per Maus und Tastatur bedienen lässt
+          – mit gezielter Fokussteuerung und zusätzlicher Navigation über die
+          Pfeiltasten.
+        </p>
+      </section>
+
+      <section class="lesson-sidebar" aria-labelledby="roadmap-explanation">
+        <h1 id="roadmap-explanation">
+          Vom Button zum <span class="highlight">barrierearmen Roadmap-Drawer</span>
+        </h1>
+
+        <p>
+          Der Roadmap-Button öffnet ein seitlich einfahrendes
+          Inhaltsverzeichnis, über das Besucher direkt zu den einzelnen
+          Lektionen navigieren können.
+        </p>
+
+        <p>
+          Bei der Umsetzung wurde bewusst auf das native HTML-Element
+          <code>&lt;dialog&gt;</code> zurückgegriffen. Anstatt ein eigenes
+          Dialogsystem mit JavaScript nachzubauen, nutzen wir damit bereits
+          vorhandene Funktionen des Browsers.
+        </p>
+
+        <p>
+          Das Dialogfenster wird mit der JavaScript-Methode
+          <code>showModal()</code> geöffnet und mit <code>close()</code> wieder
+          geschlossen. Durch die modale Darstellung wird der übrige Seiteninhalt
+          während der geöffneten Navigation für die Interaktion gesperrt. Auch
+          die Escape-Taste zum Schließen wird vom Browser nativ unterstützt.
+        </p>
+
+        <h2>1. HTML – Die semantische Grundlage</h2>
+
+        <p>
+          Der Roadmap-Button ist ein echtes HTML-<code>button</code>-Element.
+          Dadurch ist er von Haus aus mit der Tastatur bedienbar und wird von
+          Screenreadern als Schaltfläche erkannt.
+        </p>
+
+        <p>
+          Über <code>aria-expanded</code> wird zusätzlich der aktuelle
+          Öffnungszustand vermittelt. <code>aria-controls</code> stellt eine
+          Beziehung zwischen dem Button und dem zugehörigen Dialog her.
+        </p>
+
+        <p>
+          Das Inhaltsverzeichnis selbst wird mit
+          <code>&lt;dialog&gt;</code> umgesetzt. Innerhalb des Dialogs sorgt ein
+          <code>&lt;nav&gt;</code>-Element mit einer ungeordneten Liste aus
+          Links für eine semantisch nachvollziehbare Navigation.
+        </p>
+
+        <h2>2. CSS – Gestaltung und Animation</h2>
+
+        <p>Mit CSS wird aus dem Dialog ein seitlich einfahrendes Menü.</p>
+
+        <p>
+          Die Eigenschaft <code>transform: translateX(100%)</code> verschiebt
+          den geschlossenen Drawer zunächst außerhalb des sichtbaren Bereichs.
+          Sobald der Dialog geöffnet wird, sorgt
+          <code>transform: translateX(0)</code>
+          dafür, dass er von rechts in den Bildschirm gleitet.
+        </p>
+
+        <p>
+          Mit <code>::backdrop</code> wird gleichzeitig der Hintergrund
+          abgedunkelt und leicht verschwommen dargestellt.
+        </p>
+
+        <p>
+          Eine Besonderheit ist die Verwendung von
+          <code>@starting-style</code> und
+          <code>transition-behavior: allow-discrete</code>. Dadurch lassen sich
+          auch die sonst nicht kontinuierlich animierbaren Zustandswechsel des
+          nativen Dialogelements in den Animationsablauf einbeziehen.
+        </p>
+
+        <p>
+          Für Menschen, die reduzierte Bewegung bevorzugen, berücksichtigt das
+          CSS außerdem die Systemeinstellung
+          <code>prefers-reduced-motion</code>.
+        </p>
+
+        <h2>3. JavaScript – Interaktion und Tastatursteuerung</h2>
+
+        <p>JavaScript übernimmt die eigentliche Steuerung des Dialogs.</p>
+
+        <p>
+          Beim Klick auf den Roadmap-Button wird zunächst geprüft, ob der Dialog
+          bereits geöffnet ist. Anschließend wird
+          <code>showModal()</code> aufgerufen und der Zustand von
+          <code>aria-expanded</code> auf <code>true</code> gesetzt.
+        </p>
+
+        <p>Nach dem Öffnen wird der Fokus gezielt gesetzt:</p>
+
+        <ul class="lesson-list">
+          <li>
+            Ist eine Lektion als aktuell markiert (<code>aria-current</code>),
+            erhält deren Link den Fokus.
+          </li>
+          <li>Andernfalls wird der Schließen-Button fokussiert.</li>
+        </ul>
+
+        <p>
+          Besonders wichtig ist das Fokusmanagement. Ein geöffnetes modales
+          Dialogfenster soll die Tastaturbedienung innerhalb des Dialogs halten.
+        </p>
+
+        <p>Dafür wurde eine zusätzliche Tastatursteuerung implementiert:</p>
+
+        <div class="preview-box">
+          <div class="preview-header">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="preview-title">Tastatursteuerung</span>
+          </div>
+
+          <div class="preview-body">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Taste</th>
+                  <th scope="col">Funktion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>Tab</code></td>
+                  <td>Zum nächsten Element springen</td>
+                </tr>
+                <tr>
+                  <td><code>Shift + Tab</code></td>
+                  <td>Zum vorherigen Element springen</td>
+                </tr>
+                <tr>
+                  <td><code>↓ Pfeil runter</code></td>
+                  <td>Zum nächsten Lektionseintrag springen</td>
+                </tr>
+                <tr>
+                  <td><code>↑ Pfeil hoch</code></td>
+                  <td>Zum vorherigen Lektionseintrag springen</td>
+                </tr>
+                <tr>
+                  <td><code>Home</code></td>
+                  <td>Zum ersten Lektionseintrag springen</td>
+                </tr>
+                <tr>
+                  <td><code>End</code></td>
+                  <td>Zum letzten Lektionseintrag springen</td>
+                </tr>
+                <tr>
+                  <td><code>Escape</code></td>
+                  <td>Dialog schließen</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p>
+          Bei der Navigation mit den Pfeiltasten wird am Ende der Liste wieder
+          zum ersten Eintrag und umgekehrt gesprungen.
+        </p>
+
+        <p>
+          Wird der Dialog geschlossen, wird
+          <code>aria-expanded</code> wieder auf <code>false</code> gesetzt.
+          Zusätzlich sorgt die eigene Fokuslogik dafür, dass der Fokus zum
+          Roadmap-Button zurückkehrt, sofern er sich noch im Dialog befindet
+          oder auf dem Dokument liegt.
+        </p>
+
+        <h2>4. Warum diese Umsetzung barriereärmer ist</h2>
+
+        <p>
+          Bei interaktiven Elementen geht es nicht nur darum, dass sie mit der
+          Maus funktionieren. Sie müssen auch ohne Maus bedienbar und für
+          assistive Technologien nachvollziehbar sein.
+        </p>
+
+        <p>Deshalb wurden verschiedene Aspekte berücksichtigt:</p>
+
+        <ul class="lesson-list">
+          <li>Native HTML-Elemente statt selbstgebauter Bedienelemente.</li>
+          <li>Aussagekräftige Beschriftungen über <code>aria-label</code>.</li>
+          <li>Zustandsinformationen über <code>aria-expanded</code>.</li>
+          <li>
+            Eine nachvollziehbare Beziehung zwischen Button und Dialog über
+            <code>aria-controls</code>.
+          </li>
+          <li>Sichtbare Fokusmarkierungen über <code>:focus-visible</code>.</li>
+          <li>Eine gezielte Fokuspositionierung beim Öffnen und Schließen.</li>
+          <li>Eine zusätzliche Tastaturnavigation innerhalb der Lektionen.</li>
+          <li>
+            Berücksichtigung der Systemeinstellung für reduzierte Animationen.
+          </li>
+        </ul>
+
+        <div class="a11y-note">
+          <strong>Fazit:</strong>
+          <p>
+            Das Ergebnis ist eine Navigation, die sowohl mit der Maus als auch
+            mit der Tastatur bedient werden kann. Durch die Kombination nativer
+            Browserfunktionen mit gezielten JavaScript-Ergänzungen entsteht eine
+            benutzerfreundliche und barriereärmere Navigation.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <p>
+        Im Rahmen dieses Lernprojekts werden grundlegende Prinzipien der
+        digitalen Barrierefreiheit berücksichtigt. Das Projekt stellt jedoch
+        keine zertifizierte oder vollständige Barrierefreiheitsprüfung dar.
+      </p>
+      <p>
+        In der professionellen Webentwicklung wird Barrierefreiheit idealerweise
+        von Anfang an in den Entwicklungsprozess integriert und währenddessen
+        kontinuierlich überprüft. Dazu gehören sowohl technische Tests anhand
+        etablierter Standards als auch praktische Nutzungstests mit assistiven
+        Technologien, beispielsweise Screenreadern. Besonders wertvoll ist dabei
+        das Feedback von Menschen mit Behinderungen, die solche Technologien im
+        Alltag verwenden. Spezialisierte Agenturen und erfahrene
+        Accessibility-Tester unterstützen diesen Prozess und helfen dabei,
+        Barrieren frühzeitig zu erkennen und zu beseitigen.
+      </p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
