@@ -1,20 +1,6 @@
-// ============================================================================
-// 1. DATEN FÜR DEN STARTSEITEN-SLIDER
-// ============================================================================
-
-/*const stepData = {
-  1: {
-    number: '1',
-    code: `&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n  &lt;!-- Das nackte Gerüst --&gt;\n&lt;/html&gt;`,
-  },
-  2: {
-    number: '2',
-    code: `&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n  &lt;head&gt;\n    &lt;meta charset="UTF-8"&gt;\n    &lt;title&gt;Salon&lt;/title&gt;\n  &lt;/head&gt;\n&lt;/html&gt;`,
-  },
-};*/
 
 // ============================================================================
-// 2. INITIALISIERUNG
+// 1. INITIALISIERUNG
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
